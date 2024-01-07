@@ -3,9 +3,81 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Snake"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-    </Grid>
+            Title="LoginAndRegistr" Height="760" Width="450" TextElement.Foreground="{DynamicResource MaterialDesignBody}" Background="{x:Null}" AllowsTransparency="True" 
+    WindowStyle="None" WindowStartupLocation="CenterScreen" >
+
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+        <materialDesign:DialogHost CloseOnClickAway="True" Name="DialogHost">
+            <TabControl>
+                <TabItem Header="Авторизация">
+                    <StackPanel>
+                        <materialDesign:PopupBox HorizontalAlignment="Right" Margin="0 20 20 0" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
+                            <StackPanel>
+                                <StackPanel Margin="16 0 0 0"  Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock VerticalAlignment="Center" Text="Тёмный режим"></TextBlock>
+                                    <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" Name="themeToggle" IsChecked="{Binding IsDarkTheme}" Click="themeToggle_Click"></ToggleButton>
+                                </StackPanel>
+
+                                <Button ToolTip="Возникли проблемы со входом в систему" Content="Помоги мне" Margin="0 8 0 0"></Button>
+
+                                <Button Name="btn_exit" ToolTip="Закройте приложение" Content="Выход из приложения" Click="btn_exit_Click"></Button>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+
+                        <Image Margin="0 40 0 5" Source="Image\rabbid.png" Height="100"></Image>
+
+                        <TextBlock Margin="0 25 0 5" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Добро пожаловать"></TextBlock>
+
+                        <TextBlock FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Войдите в свою учётную запись"></TextBlock>
+
+                        <TextBox Margin="0 50 0 0" x:Name="txtUsername" Width="300" FontSize="18"
+                        materialDesign:HintAssist.Hint="Введите имя" BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+
+                        <PasswordBox Margin="0 20 0 0" Name="txtPassword" Width="300" FontSize="18" materialDesign:HintAssist.Hint="Введите пароль" BorderThickness="2"
+                        BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" ></PasswordBox>
+
+                        <Button Margin="0 40 0 0" Name="loginBtn" Style="{StaticResource MaterialDesignFlatMidBgButton}" Height="53" 
+                        Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="Войти" ></Button>
+
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Регистрация">
+                    <StackPanel>
+                        <materialDesign:PopupBox HorizontalAlignment="Right" Margin="0 20 20 0" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Height="25">
+                            <StackPanel>
+                                <StackPanel Margin="16 0 0 0"  Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock VerticalAlignment="Center" Text="Тёмный режим"></TextBlock>
+                                    <ToggleButton Cursor="Hand" ToolTip="Enable Dark Mode" Margin="12 0 8 0" Name="themeToggle_2" IsChecked="{Binding IsDarkTheme}"></ToggleButton>
+                                </StackPanel>
+
+                                <Button ToolTip="Возникли проблемы со входом в систему" Content="Помоги мне" Margin="0 8 0 0"></Button>
+
+                                <Button Name="btn_exit_2" ToolTip="Закройте приложение" Content="Выход из приложения" Click="btn_exit_Click"></Button>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+
+                        <Image Margin="0 40 0 5" Source="Image\rabbid.png" Height="100"></Image>
+
+                        <TextBlock Margin="0 25 0 5" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" Text="Добро пожаловать"></TextBlock>
+
+                        <TextBlock FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Center" Text="Войдите в свою учётную запись"></TextBlock>
+
+                        <TextBox Margin="0 50 0 0" x:Name="txtUsername_2" Width="300" FontSize="18"
+                        materialDesign:HintAssist.Hint="Введите имя" BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+
+                        <PasswordBox Margin="0 20 0 0" Name="txtPassword_2" Width="300" FontSize="18" materialDesign:HintAssist.Hint="Введите пароль" BorderThickness="2"
+                         BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" ></PasswordBox>
+
+                        <PasswordBox Margin="0 20 0 0" Name="txtPassword_3" Width="300" FontSize="18" materialDesign:HintAssist.Hint="Подтеврдите пароль" BorderThickness="2"
+                        BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" ></PasswordBox>
+
+                        <Button Margin="0 20 0 0" x:Name="signupBtn_2" Style="{StaticResource MaterialDesignFlatButton}"  Height="53" Width="300" materialDesign:ButtonAssist.CornerRadius="10" FontSize="18" Content="Создать аккаунт" Click="signupBtn_2_Click"/>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </materialDesign:DialogHost>
+    </materialDesign:Card>
 </Window>
