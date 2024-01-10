@@ -87,6 +87,10 @@ namespace Snake
                 return;
             }
             MessageBox.Show("Ты зашёл в аккаунт пупсик");
+
+            WindowSnake gameWindow = new WindowSnake();
+            gameWindow.Show();
+            this.Close();
         }
     }
 }
