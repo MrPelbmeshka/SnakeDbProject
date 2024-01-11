@@ -1,4 +1,5 @@
 ﻿using MaterialDesignThemes.Wpf;
+using System.ComponentModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,8 +13,10 @@ using System.Windows.Shapes;
 
 namespace Snake
 {
+
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -66,11 +69,12 @@ namespace Snake
                 MessageBox.Show("Такой пользователь уже имеется");
                 return;
             }
-            var user =new User { Login = login, Password = passwo, IsAdmin =isad, Score =sc };
+            var user = new User { Login = login, Password = passwo, IsAdmin = isad, Score = sc };
             context.Users.Add(user);
             context.SaveChanges();
             MessageBox.Show("Добро пожаловать пупсик");
         }
+
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -86,11 +90,17 @@ namespace Snake
                 MessageBox.Show("Неправильный логин или пароль");
                 return;
             }
+
+
             MessageBox.Show("Ты зашёл в аккаунт пупсик");
 
-            WindowSnake gameWindow = new WindowSnake();
+            string enteredName = txtUsername.Text;
+
+            WindowSnake gameWindow = new WindowSnake(enteredName);
             gameWindow.Show();
             this.Close();
         }
+
+        
     }
 }

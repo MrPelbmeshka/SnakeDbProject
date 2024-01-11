@@ -13,6 +13,7 @@ namespace Snake
 {
     public partial class WindowSnake : Window
     {
+
         public bool IsDark { get; set; }
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
 
@@ -42,17 +43,19 @@ namespace Snake
             DragMove();
         }
 
-
-
         private const int CellSize = 20;
         private List<Point> snake;
         private Point food;
         private Direction currentDirection;
         private DispatcherTimer gameTimer;
+        private int applesEaten = 0;
+        string a;
 
-        public WindowSnake()
+        
+        public WindowSnake(string enteredName)
         {
             InitializeComponent();
+            a = enteredName;
         }
 
         private void StartGame_Click(object sender, RoutedEventArgs e)
@@ -60,6 +63,8 @@ namespace Snake
             InitializeGame();
             StartGameButton.Visibility = Visibility.Hidden;
             StopGameButton.Visibility = Visibility.Visible;
+            applesEaten = 0; 
+            UpdateApplesEaten();
         }
 
         private void StopGame_Click(object sender, RoutedEventArgs e)
@@ -80,6 +85,12 @@ namespace Snake
 
         private void InitializeGame()
         {
+            maxsc.Text = "0";
+            var context = new AppDbContext();
+            var user = context.Users.SingleOrDefault(x => x.Login == a);
+
+            sc.Text = user.Score.ToString();
+
             GameCanvas.Children.Clear();
             snake = new List<Point>
             {
@@ -91,6 +102,7 @@ namespace Snake
             currentDirection = Direction.Right;
             DrawSnake();
 
+            
             CreateFood();
 
             gameTimer = new DispatcherTimer();
@@ -100,8 +112,8 @@ namespace Snake
 
             GameCanvas.Focus();
 
-            //q.Visibility = Visibility.Hidden;
             GameCanvas.Visibility = Visibility.Visible;
+            applesEaten = 0;
         }
 
         private void DrawSnake()
@@ -116,7 +128,6 @@ namespace Snake
         {
             DrawRectangle(food, Brushes.Red);
         }
-
         private void DrawRectangle(Point position, Brush color)
         {
             Rectangle rectangle = new Rectangle
@@ -171,7 +182,7 @@ namespace Snake
 
             snake.Insert(0, newHead);
 
-            // Remove the last part of the snake
+            
             if (snake.Count > 1)
             {
                 snake.RemoveAt(snake.Count - 1);
@@ -204,15 +215,49 @@ namespace Snake
 
             if (head == food)
             {
-                snake.Add(new Point(-1, -1)); // Placeholder for the new tail part
+                snake.Add(new Point(-1, -1)); 
                 CreateFood();
+                applesEaten++; 
+                UpdateApplesEaten(); 
             }
+        }
+
+
+        private void UpdateApplesEaten()
+        {
+            var context = new AppDbContext();
+            var user = context.Users.SingleOrDefault(x => x.Login == a);
+
+            maxsc.Text = applesEaten.ToString();
+            if (applesEaten > user.Score)
+            {
+                sc.Text = applesEaten.ToString();
+            } 
         }
 
         private void GameOver()
         {
             gameTimer.Stop();
-            MessageBox.Show("Ты проиграл лопух");
+
+            // Обновляем максимальное количество съеденных яблок для текущего пользователя
+            var context = new AppDbContext();
+            var user = context.Users.SingleOrDefault(x => x.Login == a);
+
+            if (user != null)
+            {
+                if (applesEaten > user.Score)
+                {
+                    user.Score = applesEaten;
+                    context.SaveChanges();
+                    //maxsc.Text = user.Score.ToString();
+                    MessageBox.Show($"Поздравляю! Ты установил новый рекорд: {applesEaten} яблок.");
+                }
+                else
+                {
+                    MessageBox.Show($"Ты проиграл. Твой лучший результат: {user.Score} яблок.");
+                }
+            }
+
             InitializeGame();
         }
 
