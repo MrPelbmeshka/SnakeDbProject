@@ -170,7 +170,8 @@ namespace Snake
             context.Users.Add(user);
             context.SaveChanges();
             MessageBox.Show("Добро пожаловать пупсик");
-
+            
+            testik.IsSelected = true;
             Pol();
             txtUsername_2email.Text = string.Empty;
             txtPassword_3.Password = string.Empty;
@@ -178,6 +179,8 @@ namespace Snake
             txtUsername_2.Text = string.Empty;
         }
 
+
+        bool img_vis = false;
         bool visibility_passwoed = false;
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
@@ -246,20 +249,27 @@ namespace Snake
         
         private void applyClick(object sender, RoutedEventArgs e)
         {
-            if (check.IsChecked == true)
-            {
-                txtPassword_box.Text = txtPassword.Password;
-                txtPassword.Visibility = Visibility.Collapsed;
-                txtPassword_box.Visibility = Visibility.Visible;
-                visibility_passwoed = true; 
-            }
-            else
-            {
-                txtPassword.Password = txtPassword_box.Text;
-                txtPassword_box.Visibility = Visibility.Collapsed;
-                txtPassword.Visibility = Visibility.Visible;
-                visibility_passwoed = false;
-            }
+
+            txtPassword_box.Text = txtPassword.Password;
+            txtPassword.Visibility = Visibility.Collapsed;
+            txtPassword_box.Visibility = Visibility.Visible;
+            visibility_passwoed = true; 
+            but1.Visibility = Visibility.Collapsed;
+            but2.Visibility = Visibility.Visible;
+            text_eye.Text = "Cкрыть пароль";
+
+        }
+        private void applyClick_2(object sender, RoutedEventArgs e)
+        {
+
+            txtPassword.Password = txtPassword_box.Text;
+            txtPassword_box.Visibility = Visibility.Collapsed;
+            txtPassword.Visibility = Visibility.Visible;
+            visibility_passwoed = false;
+            but2.Visibility = Visibility.Collapsed;
+            but1.Visibility = Visibility.Visible;
+            text_eye.Text = "Показать пароль";
+
         }
     }
 
