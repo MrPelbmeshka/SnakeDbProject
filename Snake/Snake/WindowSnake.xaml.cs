@@ -263,6 +263,7 @@ namespace Snake
 
             StartGameButton.Visibility = Visibility.Visible;
             StopGameButton.Visibility = Visibility.Hidden;
+            speed.IsEnabled = true;
 
 
             // Обновляем максимальное количество съеденных яблок для текущего пользователя
@@ -275,7 +276,6 @@ namespace Snake
                 {
                     user.Score = applesEaten;
                     context.SaveChanges();
-                    //maxsc.Text = user.Score.ToString();
                     MessageBox.Show($"Поздравляю! Ты установил новый рекорд: {applesEaten} яблок.");
                 }
                 else

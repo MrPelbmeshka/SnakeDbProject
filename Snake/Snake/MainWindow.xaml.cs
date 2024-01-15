@@ -96,7 +96,7 @@ namespace Snake
             }
 
 
-            if (tr_email == false || tr_pas == false || tr_pas_2 == false || tr_pas_3 == false)
+            if (tr_email == false || tr_pas == false || tr_pas_2 == false || tr_pas_3 == false || txtUsername_2.Text == string.Empty || txtUsername_2email.Text == string.Empty || txtPassword_2.Password == string.Empty || txtPassword_3.Password == string.Empty) 
             {
                 if (tr_pas_2 == false && tr_pas_3 == false)
                 {
@@ -194,8 +194,6 @@ namespace Snake
             {
                 passwo = txtPassword.Password;
             }
-
-            
 
             var context = new AppDbContext();
 

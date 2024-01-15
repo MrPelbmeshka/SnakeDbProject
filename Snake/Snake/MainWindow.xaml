@@ -76,7 +76,7 @@
                         materialDesign:HintAssist.Hint="Введите Email" BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
 
                         <TextBox Margin="0 20 0 0" x:Name="txtUsername_2" Width="300" FontSize="18"
-                        materialDesign:HintAssist.Hint="Введите логин" BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}"></TextBox>
+                        materialDesign:HintAssist.Hint="Введите логин" BorderThickness="2" BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedTextBox}" ></TextBox>
 
                         <PasswordBox Margin="0 20 0 0" Name="txtPassword_2" Width="300" FontSize="18" materialDesign:HintAssist.Hint="Введите пароль" BorderThickness="2"
                          BorderBrush="{DynamicResource MaterialDesignDivider}" Style="{StaticResource MaterialDesignOutlinedPasswordBox}" ></PasswordBox>
