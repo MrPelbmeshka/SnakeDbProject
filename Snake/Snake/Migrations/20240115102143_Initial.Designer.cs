@@ -11,7 +11,7 @@ using Snake;
 namespace Snake.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240108133824_Initial")]
+    [Migration("20240115102143_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -31,6 +31,10 @@ namespace Snake.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IsAdmin")
                         .HasColumnType("int");

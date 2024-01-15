@@ -51,11 +51,18 @@ namespace Snake
         private int applesEaten = 0;
         string a;
 
-        
-        public WindowSnake(string enteredName)
+
+        public WindowSnake(string enteredName, bool usertr)
         {
             InitializeComponent();
+
             a = enteredName;
+
+            welcome.Text = $"Добро пожаловать {a}";
+            if (usertr)
+            {
+                test.Visibility = Visibility.Visible;
+            }
         }
 
         private void StartGame_Click(object sender, RoutedEventArgs e)
@@ -73,6 +80,7 @@ namespace Snake
         }
         private void StopGame()
         {
+            speed.IsEnabled = true;
             if (gameTimer != null)
             {
                 gameTimer.Stop();
@@ -105,15 +113,26 @@ namespace Snake
             
             CreateFood();
 
+
             gameTimer = new DispatcherTimer();
             gameTimer.Tick += GameTimer_Tick;
-            gameTimer.Interval = TimeSpan.FromMilliseconds(200);
+            if (speed.Text == string.Empty)
+            {
+                gameTimer.Interval = TimeSpan.FromMilliseconds(200);
+            }
+            else
+            {
+                gameTimer.Interval = TimeSpan.FromMilliseconds(int.Parse(speed.Text));
+            }
+
+            
             gameTimer.Start();
 
             GameCanvas.Focus();
 
             GameCanvas.Visibility = Visibility.Visible;
             applesEaten = 0;
+            speed.IsEnabled = false;
         }
 
         private void DrawSnake()
@@ -237,7 +256,14 @@ namespace Snake
 
         private void GameOver()
         {
-            gameTimer.Stop();
+            if (gameTimer != null)
+            {
+                gameTimer.Stop();
+            }
+
+            StartGameButton.Visibility = Visibility.Visible;
+            StopGameButton.Visibility = Visibility.Hidden;
+
 
             // Обновляем максимальное количество съеденных яблок для текущего пользователя
             var context = new AppDbContext();
@@ -258,7 +284,6 @@ namespace Snake
                 }
             }
 
-            InitializeGame();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

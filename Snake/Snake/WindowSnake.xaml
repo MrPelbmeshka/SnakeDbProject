@@ -25,6 +25,7 @@
 
                     </StackPanel>
                 </materialDesign:PopupBox>
+                <TextBlock FontSize="30" HorizontalAlignment="Center" Name="welcome"></TextBlock>
                 <StackPanel Margin="8" Orientation="Horizontal">
                     <TextBlock FontSize="30" Margin="0" Width="146">Score</TextBlock>
                     <TextBox x:Name="maxsc" IsEnabled="False" FontSize="30" Margin="0" HorizontalAlignment="Left" Width="94"></TextBox>
@@ -32,6 +33,10 @@
                 <StackPanel Margin="8" Orientation="Horizontal">
                     <TextBlock FontSize="30" Margin="0" Width="146">Max Score</TextBlock>
                     <TextBox x:Name="sc" IsEnabled="False" FontSize="30" Margin="0" HorizontalAlignment="Left" Width="94"></TextBox>
+                </StackPanel>
+                <StackPanel x:Name="test" Visibility="Collapsed" Margin="8" Orientation="Horizontal">
+                    <TextBlock FontSize="30" >скорость змеи</TextBlock>
+                    <TextBox Width="100" Name="speed"></TextBox>
                 </StackPanel>
 
                 <Grid Background="CadetBlue" Height="400" Width="400">
