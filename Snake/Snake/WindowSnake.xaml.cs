@@ -68,7 +68,7 @@ namespace Snake
         private void StartGame_Click(object sender, RoutedEventArgs e)
         {
             InitializeGame();
-            StartGameButton.Visibility = Visibility.Hidden;
+            StartGameButton.Visibility = Visibility.Collapsed;
             StopGameButton.Visibility = Visibility.Visible;
             applesEaten = 0; 
             UpdateApplesEaten();
@@ -87,7 +87,7 @@ namespace Snake
             }
 
             StartGameButton.Visibility = Visibility.Visible;
-            StopGameButton.Visibility = Visibility.Hidden;
+            StopGameButton.Visibility = Visibility.Collapsed;
             MessageBox.Show("Игра остановлена!");
         }
 
@@ -95,9 +95,27 @@ namespace Snake
         {
             maxsc.Text = "0";
             var context = new AppDbContext();
-            var user = context.Users.SingleOrDefault(x => x.Login == a);
 
-            sc.Text = user.Score.ToString();
+            bool lore = false;
+
+            foreach (var item in a)
+            {
+                if (item == '@')
+                {
+                    lore = true;
+                }
+            }
+
+            if (lore)
+            {
+                var user = context.Users.SingleOrDefault(x => x.Email == a);
+                sc.Text = user.Score.ToString();
+            }
+            else
+            {
+                var user = context.Users.SingleOrDefault(x => x.Login == a);
+                sc.Text = user.Score.ToString();
+            }
 
             GameCanvas.Children.Clear();
             snake = new List<Point>
@@ -245,13 +263,38 @@ namespace Snake
         private void UpdateApplesEaten()
         {
             var context = new AppDbContext();
-            var user = context.Users.SingleOrDefault(x => x.Login == a);
 
-            maxsc.Text = applesEaten.ToString();
-            if (applesEaten > user.Score)
+            bool lore = false;
+            foreach (var item in a)
             {
-                sc.Text = applesEaten.ToString();
-            } 
+                if (item == '@')
+                {
+                    lore = true;
+                }
+            }
+
+            if (lore)
+            {
+                var user = context.Users.SingleOrDefault(x => x.Email == a);
+                maxsc.Text = applesEaten.ToString();
+                if (applesEaten > user.Score)
+                {
+                    sc.Text = applesEaten.ToString();
+                }
+            }
+            else
+            {
+                var user = context.Users.SingleOrDefault(x => x.Login == a);
+                maxsc.Text = applesEaten.ToString();
+                if (applesEaten > user.Score)
+                {
+                    sc.Text = applesEaten.ToString();
+                }
+            }
+
+
+
+           
         }
 
         private void GameOver()
@@ -268,22 +311,50 @@ namespace Snake
 
             // Обновляем максимальное количество съеденных яблок для текущего пользователя
             var context = new AppDbContext();
-            var user = context.Users.SingleOrDefault(x => x.Login == a);
 
-            if (user != null)
+            bool lore = false;
+            foreach (var item in a)
             {
-                if (applesEaten > user.Score)
+                if (item == '@')
                 {
-                    user.Score = applesEaten;
-                    context.SaveChanges();
-                    MessageBox.Show($"Поздравляю! Ты установил новый рекорд: {applesEaten} яблок.");
-                }
-                else
-                {
-                    MessageBox.Show($"Ты проиграл. Твой лучший результат: {user.Score} яблок.");
+                    lore = true;
                 }
             }
 
+            if (lore)
+            {
+                var user = context.Users.SingleOrDefault(x => x.Email == a);
+                if (user != null)
+                {
+                    if (applesEaten > user.Score)
+                    {
+                        user.Score = applesEaten;
+                        context.SaveChanges();
+                        MessageBox.Show($"Поздравляю! Ты установил новый рекорд: {applesEaten} яблок.");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Ты проиграл. Твой лучший результат: {user.Score} яблок.");
+                    }
+                }
+            }
+            else
+            {
+                var user = context.Users.SingleOrDefault(x => x.Login == a);
+                if (user != null)
+                {
+                    if (applesEaten > user.Score)
+                    {
+                        user.Score = applesEaten;
+                        context.SaveChanges();
+                        MessageBox.Show($"Поздравляю! Ты установил новый рекорд: {applesEaten} яблок.");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Ты проиграл. Твой лучший результат: {user.Score} яблок.");
+                    }
+                }
+            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e)

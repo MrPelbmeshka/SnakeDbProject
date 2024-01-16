@@ -160,8 +160,14 @@ namespace Snake
             var context = new AppDbContext();
 
             var user_exists = context.Users.FirstOrDefault(x => x.Login == login);
+            var user_exists_2 = context.Users.FirstOrDefault(x => x.Email == email);
 
             if (user_exists is not null)
+            {
+                MessageBox.Show("Такой пользователь уже имеется");
+                return;
+            }
+            if (user_exists_2 is not null)
             {
                 MessageBox.Show("Такой пользователь уже имеется");
                 return;
@@ -179,8 +185,6 @@ namespace Snake
             txtUsername_2.Text = string.Empty;
         }
 
-
-        bool img_vis = false;
         bool visibility_passwoed = false;
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
