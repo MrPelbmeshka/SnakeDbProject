@@ -143,7 +143,6 @@ namespace Snake
                 gameTimer.Interval = TimeSpan.FromMilliseconds(int.Parse(speed.Text));
             }
 
-            
             gameTimer.Start();
 
             GameCanvas.Focus();
@@ -259,7 +258,6 @@ namespace Snake
             }
         }
 
-
         private void UpdateApplesEaten()
         {
             var context = new AppDbContext();
@@ -291,10 +289,6 @@ namespace Snake
                     sc.Text = applesEaten.ToString();
                 }
             }
-
-
-
-           
         }
 
         private void GameOver()
@@ -308,8 +302,6 @@ namespace Snake
             StopGameButton.Visibility = Visibility.Hidden;
             speed.IsEnabled = true;
 
-
-            // Обновляем максимальное количество съеденных яблок для текущего пользователя
             var context = new AppDbContext();
 
             bool lore = false;
